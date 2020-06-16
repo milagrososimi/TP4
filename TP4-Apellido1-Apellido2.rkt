@@ -99,9 +99,26 @@ Integrantes:
 (define LISTA-DPTO (distintos (primeros LISTA-DPTO-LOC)))
 
 
+;dada una lista de notificaciones y una fecha f, devuelve una lista de notificaciones con fecha igual a f.
 
+(define (not-fecha f l) (cond [(empty? l) empty]
+                              [(cons? l) (if (equal? f (notificacion-fecha (first l))) (cons (first l) (not-fecha f (rest l))) (not-fecha f (rest l)))])) 
 
+;dado un departamento y una lista de listas departamentos con sus localidades, devuelve una lista de las localidades de ese departamento.
+(define (dpto-loc d l) (cond [(empty? l) empty ]
+                             [(cons? l) (if (equal? d (first (first l)) ) (cons (second (first l)) (dpto-loc d (rest l))) (dpto-loc d (rest l)))
+                                        ]))
+
+(define (confirmados-dpto-fecha d f l) (cond [(empty? l) 0]
+                                             [(empty? (not-fecha f l)) 0]
+                                             [else (if (member? (notificacion-loc (first (not-fecha f l))) (dpto-loc d LISTA-DPTO-LOC))
+                                                       (+ (notificacion-conf (first (not-fecha f l))) (confirmados-dpto-fecha d f (rest l)))
+                                                       (confirmados-dpto-fecha d f (rest l)))
+                                                   ]))
+                                                        
 ; [Completar, ejercicio 3-3]
+
+
 
 ; [Completar, ejercicio 3-4]
 

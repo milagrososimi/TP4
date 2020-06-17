@@ -78,6 +78,21 @@ Integrantes:
 
 ; [Completar, ejercicio 2-1]
 
+(define
+  (hoy? x)
+  (string=? (notificacion-fecha x) HOY)
+  )
+ 
+(define
+  (supera? x)
+  (>= (notificacion-conf x) LIMITE-CASOS)
+  )
+
+(define
+  (localidades-limite-casos l)
+  (filter supera? (filter hoy? l))
+  )
+
 ; [Completar, ejercicio 2-2]
 
 ;;;;;;;;;;;; Consulta 2
@@ -91,7 +106,7 @@ Integrantes:
 (define
   (distintos l)
   (cond [(empty? l) empty]
-        [(cons? l) (if (equal? (member? (first l) (rest l)) #f) (cons (first l) (distintos (rest l))) (distintos (rest l)))   
+        [(cons? l) (if (equal? (member? (first l) (rest l)) #f) (cons (first l) (distintos (rest l))) (distintos (rest l)))
                    ]
         ))
 

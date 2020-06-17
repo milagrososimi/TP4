@@ -76,9 +76,26 @@ Integrantes:
 
 ;;;;;;;;;;;; Consulta 1
 
-; [Completar, ejercicio 2-1]
 
-; [Completar, ejercicio 2-2]
+;define si una notificacion supera el limite de casos
+(define
+  (supera? x)
+  (>= (notificacion-conf x) LIMITE-CASOS))
+
+;dada una notificacion, define si pertenece al dia hoy.
+(define (hoy? n) (equal? (notificacion-fecha n) HOY))
+
+;dada una lista de notificaciones, devuelve una lista con aquellas que superan LIMITE DE CASOS hasta el dia HOY.
+(define (limite-casos l) (filter supera? (filter hoy? l)))
+
+;dada una lista de notificaciones, devuelve una lista con las localidades que superan LIMITE DE CASOS hasta el dia HOY.
+(define (localidades-limite-casos l) (map notificacion-loc (limite-casos l)))
+
+
+;lista de localidades que superan LIMITE DE CASOS hasta el dia HOY
+
+(define LOCALIDADES-LIMITE-CASOS (localidades-limite-casos LISTA-NOTIF))
+
 
 ;;;;;;;;;;;; Consulta 2
 

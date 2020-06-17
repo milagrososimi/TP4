@@ -115,25 +115,34 @@ Integrantes:
 ;lista de departamentos.
 (define LISTA-DPTO (distintos (primeros LISTA-DPTO-LOC)))
 
-
-;dada una lista de notificaciones y una fecha f, devuelve una lista de notificaciones con fecha igual a f.
-
-(define (not-fecha f l) (cond [(empty? l) empty]
-                              [(cons? l) (if (equal? f (notificacion-fecha (first l))) (cons (first l) (not-fecha f (rest l))) (not-fecha f (rest l)))])) 
-
 ;dado un departamento y una lista de listas departamentos con sus localidades, devuelve una lista de las localidades de ese departamento.
 (define (dpto-loc d l) (cond [(empty? l) empty ]
                              [(cons? l) (if (equal? d (first (first l)) ) (cons (second (first l)) (dpto-loc d (rest l))) (dpto-loc d (rest l)))
                                         ]))
 
-(define (confirmados-dpto-fecha d f l) (cond [(empty? l) 0]
-                                             [(empty? (not-fecha f l)) 0]
-                                             [else (if (member? (notificacion-loc (first (not-fecha f l))) (dpto-loc d LISTA-DPTO-LOC))
-                                                       (+ (notificacion-conf (first (not-fecha f l))) (confirmados-dpto-fecha d f (rest l)))
-                                                       (confirmados-dpto-fecha d f (rest l)))
-                                                   ]))
-                                                        
+;dada una localidad y un departamento, define si esa localidad pertenece al departamento.
+(define (pertenece-dpto? d loc) (member? loc (dpto-loc d LISTA-DPTO-LOC)))
+
+;dada una lista de notificaciones, una fecha f y un departamento d, devuelve una lista con las notificaciones que tienen fecha f y que pertenecen a d.
+(define (notif-fecha-dpto l f d)
+  (cond [(empty? l) empty]
+        [(cons? l) (if (and (pertenece-dpto? d (notificacion-loc (first l))) (equal? (notificacion-fecha (first l)) f))
+                       (cons (first l) (notif-fecha-dpto (rest l) f d))
+                       (notif-fecha-dpto (rest l) f d))]))
+
+;suma los casos confirmados de una lista de notificaciones.
+
+(define (suma-conf l)
+  (cond [(empty? l) 0]
+        [else (+ (notificacion-conf (first l)) (suma-conf (rest l)))]))
+
+;dada una lista de notificaciones, una fecha y un departamento, devuelve la cantidad de casos confirmados en esa fecha, en ese departamento.
+
+(define (confirmados-dpto-fecha l f d) (suma-conf (notif-fecha-dpto l f d)))
+  
+ 
 ; [Completar, ejercicio 3-3]
+
 
 
 
@@ -148,6 +157,25 @@ Integrantes:
 
 ; [Completar, ejercicio 4 - loc-lim-casos.csv]
 
+;agrega "\n " al final de un string.
+(define (agregar-\n x ) (string-append x "\n "))
+
+(write-file "loc-lim-casos.csv" (string-append "Localidades que hoy superan el limite de casos\n" (foldr string-append "" (map agregar-\n LOCALIDADES-LIMITE-CASOS))))
+
+
 ;;;;;;; Consulta 2
 
+
+
+
 ; [Completar, ejercicio 4 - casos-por-dpto-hoy.csv y casos-por-dpto-antes.csv]
+
+
+
+
+
+
+
+
+
+

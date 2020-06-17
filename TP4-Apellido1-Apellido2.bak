@@ -120,7 +120,7 @@ Integrantes:
 
 (define
   (confirmados-por-dpto l f)
-  ( cons ( cons (first LISTA-DPTO) (confirmados-dpto-fecha (first LISTA-DPTO) f l) ) (confirmados-por-dpto (rest LISTA-DPTO) f) )
+  ()
   )
 
 ; [Completar, ejercicio 3-4]

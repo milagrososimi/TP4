@@ -119,12 +119,21 @@ Integrantes:
 ; [Completar, ejercicio 3-3]
 
 (define
-  (confirmados-por-dpto l f)
-  ( cons ( cons (first LISTA-DPTO) (confirmados-dpto-fecha (first LISTA-DPTO) f l) ) (confirmados-por-dpto (rest LISTA-DPTO) f) )
+  (armar-lista ld f l)
+  (cond [(empty? ld) empty]
+        [else (cons (cons (first ld) (confirmados-dpto-fecha (first ld) f l) ) (armar-lista (rest ld)) )])
+  )
+
+(define 
+  (confirmados-por-dpto l f) 
+  (armar-lista LISTA-DPTO f l)
   )
 
 ; [Completar, ejercicio 3-4]
 
+(define CONFIRMADOS-DPTO-ANTES (confirmados-por-dpto LISTA-NOTIF ANTES) )
+
+(define CONFIRMADOS-DPTO-HOY (confirmados-por-dpto LISTA-NOTIF HOY) )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Salidas ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,7 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname TP4-Apellido1-Apellido2) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "batch-io.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "batch-io.rkt" "teachpack" "2htdp")) #f)))
-#|
+#| ...
 Trabajo Práctico 4: Listas
 
 Integrantes:
@@ -78,6 +78,21 @@ Integrantes:
 
 ; [Completar, ejercicio 2-1]
 
+(define
+  (hoy? x)
+  (string=? (notificacion-fecha x) HOY)
+  )
+ 
+(define
+  (supera? x)
+  (>= (notificacion-conf x) LIMITE-CASOS)
+  )
+
+(define
+  (localidades-limite-casos l)
+  (filter supera? (filter hoy? l))
+  )
+
 ; [Completar, ejercicio 2-2]
 
 ;;;;;;;;;;;; Consulta 2
@@ -91,7 +106,7 @@ Integrantes:
 (define
   (distintos l)
   (cond [(empty? l) empty]
-        [(cons? l) (if (equal? (member? (first l) (rest l)) #f) (cons (first l) (distintos (rest l))) (distintos (rest l)))   
+        [(cons? l) (if (equal? (member? (first l) (rest l)) #f) (cons (first l) (distintos (rest l))) (distintos (rest l)))
                    ]
         ))
 

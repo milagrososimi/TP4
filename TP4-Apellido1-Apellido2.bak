@@ -95,6 +95,8 @@ Integrantes:
 
 ; [Completar, ejercicio 2-2]
 
+(define LOCALIDADES-LIMITE-CASOS (localidades-limite-casos LISTA-NOTIF))
+
 ;;;;;;;;;;;; Consulta 2
 
 ;A partir de una lista de listas, arma otra lista con los primeros elementos de cada una.
